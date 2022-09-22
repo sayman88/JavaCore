@@ -7,11 +7,11 @@ public class Main {
     public static void main(String[] args) {
         File file = new File("src/work5/test.csv");
         try {
-            System.out.println("Создаем новый файл - " + file);
+            System.out.println("РЎРѕР·РґР°РµРј РЅРѕРІС‹Р№ С„Р°Р№Р» - " + file);
             file.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("указан не верный путь файла...");
+            System.out.println("СѓРєР°Р·Р°РЅ РЅРµ РІРµСЂРЅС‹Р№ РїСѓС‚СЊ С„Р°Р№Р»Р°...");
         }
 
         String[] headerArray = {"header1", "header2", "header3"};
