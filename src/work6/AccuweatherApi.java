@@ -34,6 +34,7 @@ public class AccuweatherApi {
         System.out.println(checkAuthKeyResponse.code());
         System.out.println(checkAuthKeyResponse.headers());
 
+        assert checkAuthKeyResponse.body() != null;
         String bodyCityKey = checkAuthKeyResponse.body().string();
         System.out.println(bodyCityKey);
 
@@ -65,6 +66,7 @@ public class AccuweatherApi {
         System.out.println(weatherFiveDay.code());
 //        System.out.println(weatherFiveDay.headers());
 
+        assert weatherFiveDay.body() != null;
         String bodyWeatherFiveDay = weatherFiveDay.body().string();
         System.out.println(bodyWeatherFiveDay);
 
