@@ -7,46 +7,55 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/okhttp-4.8.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Новая папка/jackson-annotations-2.11.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/jar_files.zip!/" />
+          <root url="jar://$MODULE_DIR$/../../Новая папка/jackson-core-2.11.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/JSON/jackson-annotations-2.13.4.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Новая папка/jackson-databind-2.11.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/JSON/jackson-core-2.13.4.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Новая папка/kotlin-stdlib-1.3.72.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/JSON/jackson-databind-2.13.4.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Новая папка/okhttp-4.8.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../Новая папка/okio-2.7.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

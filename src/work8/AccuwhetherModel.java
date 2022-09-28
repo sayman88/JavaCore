@@ -1,4 +1,4 @@
-package work7;
+package work8;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.HttpUrl;
@@ -7,6 +7,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class AccuwhetherModel implements WeatherModel {
     private static final String PROTOKOL = "http";
@@ -16,9 +17,9 @@ public class AccuwhetherModel implements WeatherModel {
     private static final String DAILY = "daily";
     private static final String ONE_DAY = "1day";
     private static final String FIVE_DAY = "5day";
-    //    private static final String API_KEY = "0CkzH070JCn859NBOObFBcCPueH1cmAK";
-//    private static final String API_KEY = "diboclPwuPqpbFizDohtFpTQ1flG3HLz";
-    private static final String API_KEY = "MuLZF172nqwG6Wn6EL6Gdn0GWmXG9Idg";
+    private static final String API_KEY = "0CkzH070JCn859NBOObFBcCPueH1cmAK";
+    //    private static final String API_KEY = "diboclPwuPqpbFizDohtFpTQ1flG3HLz";
+//    private static final String API_KEY = "MuLZF172nqwG6Wn6EL6Gdn0GWmXG9Idg";
     private static final String API_KEY_QUERY_PARAM = "apikey";
     private static final String LOCATIONS = "locations";
     private static final String CITIES = "cities";
@@ -30,8 +31,10 @@ public class AccuwhetherModel implements WeatherModel {
     private static final String LANG_PARAM = "language";
 
     private static final OkHttpClient okHttpClient = new OkHttpClient();
-    public static final ObjectMapper objectMapper = new ObjectMapper();//уточнить private
+    private final ObjectMapper objectMapper = new ObjectMapper();
     private static final ResponseParse responseParse = new ResponseParse();
+    private static final WeatherDB weatherDB = new WeatherDB();
+
 
     public void getWeather(String selectedCity, Period period) throws IOException {
         switch (period) {
@@ -57,9 +60,11 @@ public class AccuwhetherModel implements WeatherModel {
                 String weatherOneDayResponse = oneDayForecastResponse.body().string();
 
                 //TODO: сделать человекочитаемый вывод погоды. Выбрать параметры для вывода на свое усмотрение
-                //Например: Погода в городе Москва - 5 градусов по цельсию Expect showers late Monday night
-                System.out.println("Город - " + getCityKey(selectedCity)[1]);
-                responseParse.parseWeatherResponse(weatherOneDayResponse);
+                try {
+                    weatherDB.saveWeatherDB(getCityKey(selectedCity)[1], responseParse.parseWeatherResponse(weatherOneDayResponse));
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
                 break;
             case FIVE_DAYS:
                 //TODO*: реализовать вывод погоды на 5 дней
@@ -82,8 +87,13 @@ public class AccuwhetherModel implements WeatherModel {
 
                 Response fiveDayForecastResponse = okHttpClient.newCall(request1).execute();
                 String weatherFiveDayResponse = fiveDayForecastResponse.body().string();
-                System.out.println("Город - " + getCityKey(selectedCity)[1]);
-                responseParse.parseWeatherFiveDay(weatherFiveDayResponse, period);
+                try {
+                    weatherDB.saveWeatherFiveDayDB(getCityKey(selectedCity)[1],
+                            responseParse.parseWeatherFiveDay(weatherFiveDayResponse));
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
                 break;
             default:
                 throw new IllegalArgumentException("Прогноз погоды может быть только на 1день или на 5дней. " +
@@ -112,7 +122,6 @@ public class AccuwhetherModel implements WeatherModel {
         String responseString = response.body().string();
         String cityKey = objectMapper.readTree(responseString).get(0).at("/Key").asText();
         String cityName = objectMapper.readTree(responseString).get(0).at("/LocalizedName").asText();
-        String[] cityDataArray = {cityKey, cityName};
-        return cityDataArray;
+        return new String[]{cityKey, cityName};
     }
 }
